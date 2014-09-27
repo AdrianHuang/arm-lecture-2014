@@ -24,11 +24,12 @@ clean:
 	rm -f $(objects) fibseq
 
 QEMU_CMD = qemu-arm -L /usr/arm-linux-gnueabihf ./fibseq &
-CMD = yes 9 | $(call QEMU_CMD) && sleep 1
+random_num = $(shell echo `od -An -N1 -i /dev/urandom` % 20 | bc)
+
 qemu: fibseq
-	@yes 5 | $(call QEMU_CMD)
+	@echo $(shell echo $(random_num)) | $(call QEMU_CMD)
 	@sleep 1
-	@yes 6 | $(call QEMU_CMD)
+	@echo $(shell echo $(random_num)) | $(call QEMU_CMD)
 	@sleep 1
-	@yes 7 | $(call QEMU_CMD)
+	@echo $(shell echo $(random_num)) | $(call QEMU_CMD)
 	@sleep 1
